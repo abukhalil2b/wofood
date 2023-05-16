@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('../fonts/HelveticaNeueLTW20-Light.woff');
+}
+
+body{
+  font-family: 'Helvetica';
+}
+
+@layer components {
+    .card {
+      background-color: theme('colors.white');
+      border-radius: theme('borderRadius.sm');
+      padding: theme('spacing.3');
+      box-shadow: theme('boxShadow.sm');
+    }
+
+    .btn-primary{
+      @apply w-32 h-8 flex justify-center items-center bg-green-700 hover:bg-green-500  text-white text-xs rounded p-1;
+    }
+
+    .btn-secondary{
+      @apply w-32 h-8 flex justify-center items-center bg-[#bb7d2b] hover:bg-[#c99960]  text-white text-xs rounded p-1;
+    }
+
+    .input{
+      @apply p-[2px] h-10 w-full border rounded outline-none focus-visible:border-black;
+    }
+
+    .option{
+      @apply p-2 text-xs text-center flex items-center justify-center border rounded cursor-pointer;
+    }
+
+    .option-selected{
+      @apply bg-orange-100 text-orange-600  border-orange-600;
+    }
+
+  }
+
+/* alpine */
+[x-cloak] {
+  display: none !important;
+}
+/* end alpine */
+
+/* loader */
+.loader {
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  border-top: 2px solid #ff9400;
+  width: 36px;
+  height: 36px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+      -webkit-transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
