@@ -3,8 +3,7 @@
     <div class="p-3">
        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @include('user._modal_new_user')
-            
+            <div class="text-xs"> قائمة الأعضاء الذين تحت إشراف مشرف الوفد</div>
             <form action="{{ route('user.search') }}" method="POST" class="mt-3 flex gap-1 justify-center items-center">
                 @csrf
                 <x-text-input class="w-full" type="search" name="search" placeholder="البحث بالاسم"/>
@@ -16,7 +15,7 @@
             
                 @foreach($users as $user)
                 <div class="bg-white mt-1 p-1 text-gray-800 border rounded">
-                    <a @if($user->user_type == 'normal' ||  $user->user_type == 'moderator') href="{{ route('user.task.index',$user->id) }}" @endif >
+                    <a href="{{ route('user.day.index',$user->id) }}" >
 
                         <div>
                         {{ $user->name }}

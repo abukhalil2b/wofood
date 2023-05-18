@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Group;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,26 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
+
+    
+    public function adminLoginCreate(): View
+    {
+        $groups = Group::where('id','<>',1)
+        ->whereActive(1)
+        ->get();
+
+        return view('auth.admin_login',compact('groups'));
+    }
+
+    public function adminLoginStore(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }
+
     /**
      * Display the login view.
      */

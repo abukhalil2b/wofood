@@ -18,4 +18,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
 }

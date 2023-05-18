@@ -6,13 +6,13 @@
     </x-primary-button>
 
     <x-modal name="create-users" :show="$errors->any()" focusable>
-        <form method="post" action="{{ route('user.store') }}" class="p-3 text-[#035b62]">
+        <form method="post" action="{{ route('super_admin.group.user.store') }}" class="p-3 text-[#035b62]">
             @csrf
 
             <div class="mt-6 flex justify-center">
                 <div x-data="{ user_type:'normal' }" class="flex gap-1">
                     <div @click="user_type = 'normal' " class="option" :class=" user_type == 'normal' ? 'option-selected' : '' ">عضو</div>
-                    <div @click="user_type = 'moderator' " class="option" :class=" user_type == 'moderator' ? 'option-selected' : '' ">مشرف</div>
+                    <div @click="user_type = 'admin' " class="option" :class=" user_type == 'admin' ? 'option-selected' : '' ">رئيس أو نائبا</div>
                     <input type="hidden" x-model="user_type" name="user_type">
                 </div>
             </div>
@@ -38,7 +38,8 @@
                 </div>
             </div>
 
-
+            <input type="hidden" value="{{ $group->id }}" name="group_id">
+            
             <div class="mt-6 flex justify-between">
                 <x-secondary-button x-on:click="$dispatch('close')" class="w-14">
                     إلغ

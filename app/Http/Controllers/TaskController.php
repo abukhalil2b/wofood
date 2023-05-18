@@ -4,29 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Day;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * title	expected_duration	group_id	assign_for_id	assign_by_id	due_date	started_at	done_at	consent	note
+     * title	group_id	assign_for_id	assign_by_id	day_id	start_at	end_at	done_at	consent	note
      */
     public function forMeStore(Request $request)
     {
@@ -36,18 +23,13 @@ class TaskController extends Controller
 
         $loggedUser = auth()->user();
 
-        if (!$request->due_date) {
-
-            $request['due_date'] = Carbon::now()->format('Y-m-d');
-        }
-
-
         Task::create([
             'title' => $request->title,
-            'expected_duration' => $request->expected_duration,
-            'due_date' => $request->due_date,
             'group_id' => $loggedUser->group_id,
             'assign_for_id' => $loggedUser->id,
+            'day_id' => $request->day_id,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
         ]);
 
         return back();
@@ -58,21 +40,23 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'assign_for_id' => 'required'
+            'day_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         $loggedUser = auth()->user();
 
         Task::create([
-            'title' => $request->title,
-            'expected_duration' => $request->expected_duration,
-            'due_date' => $request->due_date,
-            'group_id' => $loggedUser->group_id,
-            'assign_for_id' => $request->assign_for_id,
-            'assign_by_id' => $loggedUser->id,
+            'group_id'       => $loggedUser->group_id,
+            'assign_by_id'   => $loggedUser->id,
+            'title'          => $request->title,
+            'assign_for_id'  => $request->user_id,
+            'day_id'         => $request->day_id,
+            'start_at'       => $request->start_at,
+            'end_at'         => $request->end_at,
         ]);
 
-        return back();
+        return back();;
     }
 
     /**
@@ -83,46 +67,34 @@ class TaskController extends Controller
         return view('task.show', compact('task'));
     }
 
-
-    public function userTaskIndex($userId)
+    public function userDayIndex(User $user)
     {
-        $loggedUser = auth()->user();
-
-        //[x] super user can see any other user
-        if ($loggedUser->id == 1) {
-
-            $user = User::findOrFail($userId);
-
-        } else {
-            $user = User::where(['id' => $userId, 'group_id' => $loggedUser->group_id])->first();
-
-            if (!$user) {
-                abort(404);
+        $days = Day::withCount([
+            'tasks' => function ($task) use($user){
+                $task->where('assign_for_id', $user->id);
+            },
+            'taskAttachments' => function ($taskAttachment) use($user){
+                $taskAttachment->where('assign_for_id', $user->id);
             }
-        }
-
-
-        $today = Carbon::today()->format('Y-m-d');
-
-        $totalTasks = Task::where('assign_for_id', $user->id)
-            ->get();
-
-        $todayTasks = Task::where('assign_for_id', $user->id)
-            ->whereDate('due_date', '=', $today)
-            ->get();
-
-        $prevTasks = Task::where('assign_for_id', $user->id)
-            ->whereDate('due_date', '<', $today)
-            ->get();
-
-        $nextTasks = Task::where('assign_for_id', $user->id)
-            ->whereDate('due_date', '>', $today)
-            ->get();
-
-
-
-        return view('user.task.index', compact('user', 'totalTasks', 'todayTasks', 'prevTasks', 'nextTasks'));
+            ,
+            'taskSubtasks' => function ($taskSubtask) use($user){
+                $taskSubtask->where('assign_for_id', $user->id);
+            }
+        ])->get();
+        
+        return view('user.day.index', compact('user', 'days'));
     }
+
+    public function userDayShow(User $user, Day $day)
+    {
+        $tasks = Task::where([
+            'assign_for_id' => $user->id,
+            'day_id' => $day->id
+        ])->get();
+
+        return view('user.day.show', compact('tasks', 'user', 'day'));
+    }
+
 
     /**
      * Update the specified resource in storage.

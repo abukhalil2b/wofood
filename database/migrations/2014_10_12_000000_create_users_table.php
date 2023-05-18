@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->boolean('active')->default(1);
         });
 
         Schema::create('users', function (Blueprint $table) {

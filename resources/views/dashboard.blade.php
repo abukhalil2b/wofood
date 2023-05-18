@@ -21,7 +21,7 @@
 
         </div>
 
-        @include('task._modal_new_task')
+        
 
         <div x-cloak x-show=" show == 'totalTasks' ">
             @include('task._total_task')
