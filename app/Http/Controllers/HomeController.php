@@ -120,48 +120,235 @@ class HomeController extends Controller
     }
 
 
-    public function todaySubtasks(){
+    public function todaySubtasks()
+    {
 
-        $todayTasks = TaskSubtask::all();
-        
-        return view('user.today.subtasks',compact('todayTasks'));
+        $loggedUser = auth()->user();
+
+        $todayDate = date('Y-m-d');
+
+        if ($loggedUser->user_type == 'admin') {
+
+            $groupId = $loggedUser->group_id;
+
+            $todayTasks = DB::table('task_subtasks')
+                ->select(
+                    'days.title as dayTitle',
+                    'days.ar_date as dayArDate',
+                    'days.en_date as dayEnDate',
+                    'task_subtasks.created_at as subtasksCreatedAt',
+                    'users.name as assignForName',
+                    'tasks.title as taskTitle',
+                    'task_subtasks.title as subtaskTitle'
+                )
+                ->leftJoin('tasks', 'task_subtasks.task_id', '=', 'tasks.id')
+                ->leftJoin('days', 'task_subtasks.task_id', '=', 'days.id')
+                ->leftJoin('users', 'tasks.assign_for_id', '=', 'users.id')
+                ->where('users.group_id', $groupId)
+                ->whereDate('task_subtasks.created_at', $todayDate)
+                ->get();
+        }
+
+        if ($loggedUser->user_type == 'super_admin') {
+            $todayTasks = DB::table('task_subtasks')
+                ->select(
+                    'days.title as dayTitle',
+                    'days.ar_date as dayArDate',
+                    'days.en_date as dayEnDate',
+                    'task_subtasks.created_at as subtasksCreatedAt',
+                    'users.name as assignForName',
+                    'tasks.title as taskTitle',
+                    'task_subtasks.title as subtaskTitle'
+                )
+                ->leftJoin('tasks', 'task_subtasks.task_id', '=', 'tasks.id')
+                ->leftJoin('days', 'task_subtasks.task_id', '=', 'days.id')
+                ->leftJoin('users', 'tasks.assign_for_id', '=', 'users.id')
+                ->whereDate('task_subtasks.created_at', $todayDate)
+                ->get();
+        }
+
+        return view('user.today.subtasks', compact('todayTasks'));
     }
 
-    public function todayAttachments(){
+    public function todayAttachments()
+    {
 
-        $todayAttachments = TaskAttachment::all();
-        
-        return view('user.today.attachments',compact('todayAttachments'));
+        $loggedUser = auth()->user();
+
+        $todayDate = date('Y-m-d');
+
+        if ($loggedUser->user_type == 'admin') {
+
+            $groupId = $loggedUser->group_id;
+
+            $todayAttachments = DB::table('task_attachments')
+                ->select(
+                    'days.title as dayTitle',
+                    'days.ar_date as dayArDate',
+                    'days.en_date as dayEnDate',
+                    'task_attachments.created_at as attachmentCreatedAt',
+                    'users.name as assignForName',
+                    'tasks.title as taskTitle',
+                    'task_attachments.url',
+                    'task_attachments.title as attachmentTitle'
+                )
+                ->leftJoin('tasks', 'task_attachments.task_id', '=', 'tasks.id')
+                ->leftJoin('days', 'task_attachments.task_id', '=', 'days.id')
+                ->leftJoin('users', 'tasks.assign_for_id', '=', 'users.id')
+                ->where('users.group_id', $groupId)
+                ->whereDate('task_attachments.created_at', $todayDate)
+                ->get();
+        }
+
+        if ($loggedUser->user_type == 'super_admin') {
+            $todayTasks = DB::table('task_attachments')
+                ->select(
+                    'days.title as dayTitle',
+                    'days.ar_date as dayArDate',
+                    'days.en_date as dayEnDate',
+                    'task_attachments.created_at as attachmentCreatedAt',
+                    'users.name as assignForName',
+                    'tasks.title as taskTitle',
+                    'task_attachments.url',
+                    'task_attachments.title as attachmentTitle'
+                )
+                ->leftJoin('tasks', 'task_attachments.task_id', '=', 'tasks.id')
+                ->leftJoin('days', 'task_attachments.task_id', '=', 'days.id')
+                ->leftJoin('users', 'tasks.assign_for_id', '=', 'users.id')
+                ->whereDate('task_attachments.created_at', $todayDate)
+                ->get();
+        }
+
+        return view('user.today.attachments', compact('todayAttachments'));
     }
 
-    
+    //[ ] this is result need check
     public function todayTasks()
     {
         $today = Carbon::now()->format('Y-m-d');
 
-        $todayTasks = DB::table('tasks')
-        ->select(
-            'tasks.title as taskTitle',
-            'tasks.start_at as taskStartAt',
-            'tasks.end_at as taskEndAt',
-            'tasks.done_at as taskDoneAt',
-            'days.title as dayTitle',
-            'days.ar_date as arDate',
-            'days.en_date as enDate',
-            'groups.title as groupTitle',
-            'users.name as assignFor',
-            'users.phone as phone',
-            'users.user_type as userType',
-        )
-        ->join('days','tasks.day_id','days.id')
-        ->leftJoin('users','tasks.assign_for_id','users.id')
-        ->leftJoin('groups','tasks.group_id','groups.id')
-        ->whereDate('days.en_date',$today)
-        ->get();
+        $loggedUser = auth()->user();
 
+        if ($loggedUser->user_type == 'admin') {
+
+            $groupId = $loggedUser->group_id;
+
+            $todayTasks = DB::table('tasks')
+                ->select(
+                    'tasks.title as taskTitle',
+                    'tasks.start_at as taskStartAt',
+                    'tasks.end_at as taskEndAt',
+                    'tasks.done_at as taskDoneAt',
+                    'days.title as dayTitle',
+                    'days.ar_date as arDate',
+                    'days.en_date as enDate',
+                    'groups.title as groupTitle',
+                    'assignBy.name as assignByName',
+                    'assignFor.name as assignForName',
+                    'assignFor.phone as phone',
+                    'assignFor.user_type as userType',
+                )
+                ->join('days', 'tasks.day_id', 'days.id')
+                ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
+                ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
+                ->leftJoin('groups', 'tasks.group_id', 'groups.id')
+                ->whereDate('days.en_date', $today)
+                ->where('assignFor.id', $groupId)
+                ->get();
+        }
+
+        if ($loggedUser->user_type == 'super_admin') {
+
+            $todayTasks = DB::table('tasks')
+                ->select(
+                    'tasks.title as taskTitle',
+                    'tasks.start_at as taskStartAt',
+                    'tasks.end_at as taskEndAt',
+                    'tasks.done_at as taskDoneAt',
+                    'days.title as dayTitle',
+                    'days.ar_date as arDate',
+                    'days.en_date as enDate',
+                    'groups.title as groupTitle',
+                    'assignBy.name as assignByName',
+                    'assignFor.name as assignForName',
+                    'assignFor.phone as phone',
+                    'assignFor.user_type as userType',
+                )
+                ->join('days', 'tasks.day_id', 'days.id')
+                ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
+                ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
+                ->leftJoin('groups', 'tasks.group_id', 'groups.id')
+                ->whereDate('days.en_date', $today)
+                ->get();
+        }
         // return $todayTasks;
 
-        return view('user.today.tasks',compact('todayTasks'));
+        return view('user.today.tasks', compact('todayTasks'));
     }
 
+
+    public function lateTasks()
+    {
+        $today = Carbon::now()->format('Y-m-d');
+
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->user_type == 'admin') {
+
+            $groupId = $loggedUser->group_id;
+
+            $lateTasks = DB::table('tasks')
+                ->select(
+                    'tasks.title as taskTitle',
+                    'tasks.start_at as taskStartAt',
+                    'tasks.end_at as taskEndAt',
+                    'tasks.done_at as taskDoneAt',
+                    'days.title as dayTitle',
+                    'days.ar_date as arDate',
+                    'days.en_date as enDate',
+                    'groups.title as groupTitle',
+                    'assignBy.name as assignByName',
+                    'assignFor.name as assignForName',
+                    'assignFor.phone as phone',
+                    'assignFor.user_type as userType',
+                )
+                ->join('days', 'tasks.day_id', 'days.id')
+                ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
+                ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
+                ->leftJoin('groups', 'tasks.group_id', 'groups.id')
+                ->whereNull('tasks.done_at')
+                ->whereDate('days.en_date','<', $today)
+                ->where('assignFor.id', $groupId)
+                ->get();
+        }
+
+        if ($loggedUser->user_type == 'super_admin') {
+
+            $lateTasks = DB::table('tasks')
+                ->select(
+                    'tasks.title as taskTitle',
+                    'tasks.start_at as taskStartAt',
+                    'tasks.end_at as taskEndAt',
+                    'tasks.done_at as taskDoneAt',
+                    'days.title as dayTitle',
+                    'days.ar_date as arDate',
+                    'days.en_date as enDate',
+                    'groups.title as groupTitle',
+                    'assignBy.name as assignByName',
+                    'assignFor.name as assignForName',
+                    'assignFor.phone as phone',
+                    'assignFor.user_type as userType',
+                )
+                ->join('days', 'tasks.day_id', 'days.id')
+                ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
+                ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
+                ->leftJoin('groups', 'tasks.group_id', 'groups.id')
+                ->whereNull('tasks.done_at')
+                ->whereDate('days.en_date','<', $today)
+                ->get();
+        }
+        // return $lateTasks;
+
+        return view('user.late.tasks', compact('lateTasks'));
+    }
 }

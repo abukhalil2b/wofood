@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskAttachment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaskAttachmentController extends Controller
 {
@@ -29,6 +30,10 @@ class TaskAttachmentController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
+
+        $request->validate([
+            'attachment' => 'required'
+        ]);
 
         if ($request->hasFile('attachment')) {
 
@@ -70,11 +75,12 @@ class TaskAttachmentController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(TaskAttachment $taskAttachment)
+    public function delete(TaskAttachment $attachment)
     {
-        //
+        $attachment->delete();
+
+        Storage::delete($attachment->url);
+
+        return back();
     }
 }

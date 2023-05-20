@@ -71,6 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/search', [HomeController::class, 'userSearch'])->name('user.search');
 
 /*--    user - today --*/
+    Route::get('user/late/tasks', [HomeController::class, 'lateTasks'])->name('user.late.tasks');
+
     Route::get('user/today/tasks', [HomeController::class, 'todayTasks'])->name('user.today.tasks');
 
     Route::get('user/today/subtasks', [HomeController::class, 'todaySubtasks'])->name('user.today.subtasks');
@@ -106,6 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('task/attachment/store', [TaskAttachmentController::class, 'store'])->name('task.attachment.store');
+    Route::get('task/attachment/delete/{attachment}', [TaskAttachmentController::class, 'delete'])->name('task.attachment.delete');
 });
 
 

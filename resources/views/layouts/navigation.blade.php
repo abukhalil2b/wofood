@@ -42,6 +42,13 @@
                 </x-responsive-nav-link>
                 @endif
 
+
+                @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
+                <x-responsive-nav-link :href="route('user.late.tasks')" :active="request()->routeIs('user.late.tasks')">
+                   مهام كل الأعضاء المتأخرة
+                </x-responsive-nav-link>
+                @endif
+
                 @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
                 <x-responsive-nav-link :href="route('user.today.attachments')" :active="request()->routeIs('user.today.attachments')">
                    مرفقات كل الأعضاء لهذا اليوم

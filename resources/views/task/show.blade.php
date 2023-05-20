@@ -38,13 +38,17 @@
 
                 <input type="hidden" name="task_id" value="{{ $task->id }}">
                 <x-primary-button class="mt-2 w-full">حــفــظ </x-primary-button>
+                <x-input-error :messages="$errors->get('attachment')" class="mt-2" />
             </form>
 
             @foreach($task->taskAttachments as $attachment)
             <div class="mt-2 bg-white border rounded p-1 w-80 text-xs">
                <div> {{ $attachment->title }}</div>
+               <div class="flex justify-between">
                <a href="{{ Storage::url($attachment->url) }}">الملف</a>
               
+              <a onclick="return confirm('هل متأكد');" href="{{ route('task.attachment.delete',$attachment->id) }}" class="text-red-400">حذف</a>
+               </div>
             </div>
             @endforeach
 
@@ -57,7 +61,7 @@
             <div class="mt-1 bg-white border rounded p-1 w-full text-xs flex justify-between">
                 {{ $subtask->title }}
 
-                <a onclick="return confirm('هل متأكد');" href="{{ route('task.subtask.delete',$subtask->id) }}">حذف</a>
+                <a onclick="return confirm('هل متأكد');" href="{{ route('task.subtask.delete',$subtask->id) }}" class="text-red-400">حذف</a>
             </div>
             @endforeach
 

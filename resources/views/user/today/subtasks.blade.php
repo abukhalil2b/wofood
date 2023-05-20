@@ -3,16 +3,18 @@
     <div class="mt-1 max-w-7xl mx-auto sm:px-6 lg:px-8 p-3">
 
 
-    @foreach($todayTasks as $subtask)
+        @foreach($todayTasks as $subtask)
 
-    <div class="bg-white mt-1 p-1 rounded border text-xs">
-        <div class="text-xl">{{ $subtask->title }}</div>
-       <div class="text-xs text-gray-500"> المهمه: {{ $subtask->task->title }}</div>
-       <div class="text-xs text-gray-500"> العضو: {{ $subtask->task->assignFor->name }}</div>
-       <div class="text-xs text-gray-500"> الوفد أو المجموعة: {{ $subtask->task->assignFor->group->title }}</div>
-    </div>
+        <div class="bg-white mt-1 p-1 rounded border text-xs">
+            <div class="text-xl"> التعليق: {{ $subtask->subtaskTitle }}</div>
+            <div class="text-xl"> المهمه: {{ $subtask->taskTitle }}</div>
+            <div class="text-xs text-gray-500"> العضو: {{ $subtask->assignForName}}</div>
+            <hr class="my-2">
+            <div class="text-[10px] text-gray-300">{{ $subtask->dayTitle }} {{ $subtask->dayArDate }} </div>
+            <div class="text-[10px] text-gray-300">تاريخ المهمة:{{ $subtask->dayEnDate }} تاريخ إنشاء التعليق:{{ $subtask->subtasksCreatedAt }} </div>
+        </div>
 
-    @endforeach
+        @endforeach
 
     </div>
 </x-app-layout>

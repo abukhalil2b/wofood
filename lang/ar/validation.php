@@ -181,6 +181,7 @@ return [
 
     'attributes' => [
 
+        'attachment' => 'المرفقات',
         'current_password' => 'كلمة الرور الحالية',
         'title' => 'العنوان',
         'idcard' => 'المستخدم',
