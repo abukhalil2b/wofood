@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $groups = Group::where('id', '<>', 1)->get();
+
+        return view('auth.register', compact('groups'));
     }
 
     /**
@@ -28,24 +31,31 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+    // return $request->all();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'numeric', 'unique:users'],
+            'group_id' => ['required'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $group = Group::find($request->group_id);
 
-        event(new Registered($user));
+        if ($group) {
 
-        Auth::login($user);
+            if ($group->id > 1) {
+                
+                User::create([
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'password' => Hash::make($request->phone),
+                    'group_id' => $request->group_id,
+                ]);
 
-        return redirect(RouteServiceProvider::HOME);
+                return back()->with(['message' => 'تم تسجيلك بنجاح']);
+            }
+        }
+        abort(403);
     }
 }
