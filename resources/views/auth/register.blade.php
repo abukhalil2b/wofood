@@ -10,34 +10,30 @@
         <x-input-error :messages="$errors->get('group_id')" class="mt-2" />
         <input type="hidden" x-model="group_id" name="group_id">
 
-        <div x-cloak x-show="group_id != null ">
-
-            <!-- Name -->
-            <div class="mt-4">
-                الاسم
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-            </div>
-
-
-            <!-- Password -->
-            <div class="mt-4">
-                رقم الهاتف
-                <x-text-input id="phone" class="block mt-1 w-full" type="number" name="phone" required />
-
-                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-            </div>
-
-            <x-primary-button class="w-full mt-4">
-                تسجيل
-            </x-primary-button>
-            @if( session('message') )
-            <div class="mt-3 p-1 bg-green-100 text-green-600 border rounded text-center border-green-600">
-                {{ session('message') }}
-            </div>
-            @endif
-
+        <!-- Name -->
+        <div class="mt-4">
+            الاسم
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
+
+
+        <!-- Password -->
+        <div class="mt-4">
+            رقم الهاتف
+            <x-text-input id="phone" class="block mt-1 w-full" type="number" name="phone" required />
+
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+        <x-primary-button class="w-full mt-4">
+            تسجيل
+        </x-primary-button>
+        @if( session('message') )
+        <div class="mt-3 p-1 bg-green-100 text-green-600 border rounded text-center border-green-600">
+            {{ session('message') }}
+        </div>
+        @endif
 
     </form>
 </x-guest-layout>
