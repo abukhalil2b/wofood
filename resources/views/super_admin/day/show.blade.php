@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 p-3">
-        @include('inc._super_admin_nav')
+
 
         <div class="mt-1">
             <div class="text-xl text-orange-500 text-center">

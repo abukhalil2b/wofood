@@ -8,7 +8,7 @@
     <x-modal name="create_task_for_me" :show="$errors->any()" focusable>
 
         <div class="p-1">
-        @include('inc._username')
+            @include('inc._username')
         </div>
 
         <form x-data="{ expected_duration: '' }" method="post" action="{{ route('task.for_my_team.store') }}" class="p-3 text-[#035b62]">
@@ -24,10 +24,14 @@
                 <div>
                     الوقت المتوقع لإنجاز المهمة:
                 </div>
-                <div class="mt-2 w-full grid grid-cols-3 md:grid-cols-8 gap-1">
+                <div class="mt-2 w-full flex gap-1">
+                    من
                     <x-text-input type="time" class="" name="start_at" />
+                    إلى
                     <x-text-input type="time" class="" name="end_at" />
                 </div>
+                <x-input-error :messages="$errors->get('start_at')" />
+                <x-input-error :messages="$errors->get('end_at')" />
             </div>
 
             <input type="hidden" name="user_id" value="{{ $user->id }}">

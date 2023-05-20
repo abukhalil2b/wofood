@@ -28,7 +28,22 @@ class TaskAttachmentController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
+
+        if ($request->hasFile('attachment')) {
+
+            $filename = time() . '.' . $request->attachment->getClientOriginalExtension();
+
+            $fileUrl = $request->file('attachment')->storeAs('attachment/' . $request->task_id, $filename);
+
+            TaskAttachment::create([
+                'title' => $request->title,
+                'url' => $fileUrl,
+                'task_id' => $request->task_id
+            ]);
+
+            return back()->with(['status' => 'success', 'message' => 'تم']);
+        }
     }
 
     /**

@@ -9,8 +9,8 @@
                 <div class="bg-white mt-1 p-1 text-gray-800 border rounded">
                     {{ $group->title }}
                     <div class="text-xs text-gray-400">
-                        <a href=" {{ route('super_admin.group.user.index',$group->id) }}">
-                            الأعضاء
+                        <a href=" {{ route('super_admin.group.user.index',$group->id) }}" class="mt-1 p-1 inline-flex rounded border">
+                        إدارة الأعضاء ({{ $group->users->count() }})
                         </a>
                     </div>
                 </div>

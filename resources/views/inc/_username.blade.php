@@ -1,3 +1,3 @@
 <div class="card text-orange-600 text-lg">
-    {{ $user->name }}
+    @isset($title){{ $title  }}@endisset {{ $user->name }}
 </div>

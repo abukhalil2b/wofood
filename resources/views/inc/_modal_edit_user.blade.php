@@ -20,16 +20,6 @@
 
         <div class="mt-6 flex items-center gap-1">
             <div class="w-32">
-                رقم الهاتف
-            </div>
-            <div class="w-full">
-                <x-text-input value="{{ $user->phone }}" type="number" name="phone" class="mt-1 block w-full" />
-                <x-input-error :messages="$errors->get('phone')" />
-            </div>
-        </div>
-
-        <div class="mt-6 flex items-center gap-1">
-            <div class="w-32">
                 الاسم
             </div>
             <div class="w-full">

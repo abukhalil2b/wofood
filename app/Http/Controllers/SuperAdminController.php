@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Day;
 use App\Models\Group;
+use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
+
 class SuperAdminController extends Controller
 {
-    public function dashboard()
-    {
 
-        return view('super_admin.dashboard');
-    }
+
 
     public function dayIndex()
     {
@@ -31,12 +31,11 @@ class SuperAdminController extends Controller
     public function dayUpdate(Day $day, Request $request)
     {
         $day->update([
-            'en_date' =>  $request->en_date,
             'ar_date' =>  $request->ar_date,
             'title' =>  $request->title
         ]);
 
-        return back();
+        return redirect()->route('super_admin.day.index');
     }
 
     public function dayStore(Request $request)
@@ -151,7 +150,6 @@ class SuperAdminController extends Controller
 
         $user->update([
             'name' => $request->name,
-            'phone' => $request->phone,
             'user_type' => $request->user_type,
         ]);
 

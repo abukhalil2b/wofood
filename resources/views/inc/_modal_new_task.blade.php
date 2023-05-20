@@ -19,15 +19,19 @@
                 <div>
                     الوقت المتوقع لإنجاز المهمة:
                 </div>
-                <div class="mt-2 w-full grid grid-cols-3 md:grid-cols-8 gap-1">
-                    <x-text-input type="time" class="" name="start_at"/>
-                    <x-text-input type="time" class="" name="end_at"/>
+                <div class="mt-2 w-full flex gap-1">
+                    من
+                    <x-text-input type="time" class="" name="start_at" />
+                    إلى
+                    <x-text-input type="time" class="" name="end_at" />
                 </div>
+                <x-input-error :messages="$errors->get('start_at')" />
+                <x-input-error :messages="$errors->get('end_at')" />
             </div>
 
             <input type="hidden" name="day_id" value="{{ $day->id }}">
             <div class="mt-6 flex justify-between">
-                
+
                 <x-secondary-button x-on:click="$dispatch('close')" class="w-14">
                     إلغ
                 </x-secondary-button>

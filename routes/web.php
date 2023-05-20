@@ -14,16 +14,11 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 
 Route::group(['middleware' => ['auth', 'super_admin']], function () {
 
-    Route::get('super_admin/dashboard', [SuperAdminController::class, 'dashboard'])->name('super_admin.dashboard');
 
     Route::get('super_admin/day/show/{day}', [SuperAdminController::class, 'dayShow'])->name('super_admin.day.show');
 
@@ -73,14 +68,23 @@ Route::group(['middleware' => 'auth'], function () {
     /*--    user   --*/
     Route::get('user/index', [HomeController::class, 'userIndex'])->name('user.index');
 
-    Route::get('user/show/{user}', [HomeController::class, 'userShow'])->name('user.show');
-
     Route::post('user/search', [HomeController::class, 'userSearch'])->name('user.search');
+
+/*--    user - today --*/
+    Route::get('user/today/tasks', [HomeController::class, 'todayTasks'])->name('user.today.tasks');
+
+    Route::get('user/today/subtasks', [HomeController::class, 'todaySubtasks'])->name('user.today.subtasks');
+
+    Route::get('user/today/attachments', [HomeController::class, 'todayAttachments'])->name('user.today.attachments');
 });
 
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('task/show/{task}', [TaskController::class, 'show'])->name('task.show');
+
+    Route::get('task/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
+
+    Route::post('task/update/{task}', [TaskController::class, 'update'])->name('task.update');
 
     Route::get('task/delete/{task}', [TaskController::class, 'delete'])->name('task.delete');
 
@@ -101,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('task/attachment/store/{task}', [TaskAttachmentController::class, 'store'])->name('task.attachment.store');
+    Route::post('task/attachment/store', [TaskAttachmentController::class, 'store'])->name('task.attachment.store');
 });
 
 

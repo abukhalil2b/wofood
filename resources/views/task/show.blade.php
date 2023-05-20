@@ -27,7 +27,7 @@
         <div class="p-1 mt-20 border border-black rounded">
             مرفقات
 
-            <form action="{{ route('task.attachment.store',$task->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('task.attachment.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div>
                     <x-text-input name="title" type="text" class="w-full" placeholder="عنوان الملف" />
@@ -35,12 +35,16 @@
                 <div class="mt-1 w-80">
                     <input type="file"  name="attachment">
                 </div>
+
+                <input type="hidden" name="task_id" value="{{ $task->id }}">
                 <x-primary-button class="mt-2 w-full">حــفــظ </x-primary-button>
             </form>
 
             @foreach($task->taskAttachments as $attachment)
             <div class="mt-2 bg-white border rounded p-1 w-80 text-xs">
-                {{ $attachment->title }}
+               <div> {{ $attachment->title }}</div>
+               <a href="{{ Storage::url($attachment->url) }}">الملف</a>
+              
             </div>
             @endforeach
 
@@ -57,12 +61,6 @@
             </div>
             @endforeach
 
-        </div>
-
-        <div class="mt-10 py-5">
-        <a class="btn-outline-orange p-1 text-red-500" href="{{ route('task.delete',$task->id) }}">
-            حذف نهائي
-        </a>
         </div>
 
     </div>

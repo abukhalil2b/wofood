@@ -22,26 +22,50 @@
 
 
         <div :class="{'block': open, 'hidden': ! open}" class="hidden">
-            <div class="pt-2 pb-3 space-y-1">
+            <div class="pt-2 pb-3 space-y-1 text-sm">
 
                 @if(auth()->user()->user_type == 'super_admin')
-                <x-responsive-nav-link :href="route('super_admin.dashboard')" :active="request()->routeIs('super_admin.dashboard')">
-                    لوحة إدارة النظام
+                <x-responsive-nav-link :href="route('super_admin.group.index')" :active="request()->routeIs('super_admin.group.index')">
+                    إدارة الوفود والمجموعات
+                </x-responsive-nav-link>
+                @endif
+
+                @if(auth()->user()->user_type == 'super_admin')
+                <x-responsive-nav-link :href="route('super_admin.day.index')" :active="request()->routeIs('super_admin.day.index')">
+                    إعداد جدول المهام
+                </x-responsive-nav-link>
+                @endif
+
+                @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
+                <x-responsive-nav-link :href="route('user.today.tasks')" :active="request()->routeIs('user.today.tasks')">
+                   مهام كل الأعضاء لهذا اليوم
+                </x-responsive-nav-link>
+                @endif
+
+                @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
+                <x-responsive-nav-link :href="route('user.today.attachments')" :active="request()->routeIs('user.today.attachments')">
+                   مرفقات كل الأعضاء لهذا اليوم
+                </x-responsive-nav-link>
+                @endif
+
+                @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
+                <x-responsive-nav-link :href="route('user.today.subtasks')" :active="request()->routeIs('user.today.subtasks')">
+                تعليقات كل الأعضاء لهذا اليوم
                 </x-responsive-nav-link>
                 @endif
 
                 @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-                    الأعضاء
+                    جدول مهام الأعضاء (إضافة مهمة)
                 </x-responsive-nav-link>
                 @endif
 
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    الرئيسية
+                <x-responsive-nav-link :href="route('day.index')" :active="request()->routeIs('day.index')">
+                جدول مهامي (إضافة مهمة)
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('day.index')" :active="request()->routeIs('day.index')">
-                    التقويم
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    الرئيسية
                 </x-responsive-nav-link>
 
             </div>

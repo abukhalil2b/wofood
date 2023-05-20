@@ -125,7 +125,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute field format is invalid.',
-    'required' => ':attribute حقل مطلوب',
+    'required' => '( :attribute ) حقل مطلوب',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_if_accepted' => 'The :attribute field is required when :other is accepted.',
@@ -180,14 +180,16 @@ return [
     */
 
     'attributes' => [
-        
-        'current_password'=>'كلمة الرور الحالية',
-        'title'=>'العنوان',
-        'idcard'=>'المستخدم',
-        'password'=>'كلمة المرور',
-        'phone'=>'الهاتف',
-        'group_id'=>'المجموعة',
-        'name'=>'الاسم'
+
+        'current_password' => 'كلمة الرور الحالية',
+        'title' => 'العنوان',
+        'idcard' => 'المستخدم',
+        'password' => 'كلمة المرور',
+        'phone' => 'الهاتف',
+        'group_id' => 'المجموعة',
+        "start_at" => "من",
+        "end_at" => "إلى",
+        'name' => 'الاسم'
     ],
 
 ];

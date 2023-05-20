@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Day;
 use App\Models\Task;
+use App\Models\TaskAttachment;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\TaskSubtask;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 
@@ -49,54 +52,116 @@ class HomeController extends Controller
     {
         $loggedUser = auth()->user();
 
-        if($loggedUser->user_type == 'normal'){
-            abort(403,'لاتملك الصلاحية');
+        $groupTitle = $loggedUser->group->title;
+
+        if ($loggedUser->user_type == 'normal') {
+
+            abort(403, 'لاتملك الصلاحية');
         }
 
-        //[ ] super user can see any other user
-        if ($loggedUser->id == 1) {
-
-            $users = User::all();
-        } else {
+        if ($loggedUser->user_type == 'admin') {
 
             $users = User::where('group_id', $loggedUser->group_id)
                 ->whereNot('id', 1)
+                ->whereNot('id', $loggedUser->id)
                 ->get();
+
+            $title = 'قائمة أعضاء ' . $groupTitle;
         }
 
+        if ($loggedUser->user_type == 'super_admin') {
 
-        return view('user.index', compact('users'));
-    }
+            $users = User::whereNot('id', 1)
+                ->whereNot('id', $loggedUser->id)
+                ->get();
 
-    public function userShow(User $user)
-    {
-        $loggedUser = auth()->user();
-
-        if ($loggedUser->group_id == $user->group_id) {
-
-            return view('user.show', compact('user'));
+            $title = 'قائمة كل الأعضاء';
         }
+
+        return view('user.index', compact('users', 'title'));
     }
+
 
     public function userSearch(Request $request)
     {
-        $loggedUser = auth()->user();
-
         $search = $request->search;
 
-        if ($loggedUser->id == 1) {
+        $loggedUser = auth()->user();
 
-            $users = User::where('name', 'like', '%' . $search . '%')
-                ->get();
-        } else {
+        $groupTitle = $loggedUser->group->title;
 
-            $users = User::where('group_id', $loggedUser->group_id)
-                ->where('name', 'like', '%' . $search . '%')
-                ->get();
+        if ($loggedUser->user_type == 'normal') {
+
+            abort(403, 'لاتملك الصلاحية');
         }
 
-        return view('user.index', compact('users'));
+        if ($loggedUser->user_type == 'admin') {
+
+            $users = User::where('group_id', $loggedUser->group_id)
+                ->whereNot('id', 1)
+                ->whereNot('id', $loggedUser->id)
+                ->where('name', 'like', '%' . $search . '%')
+                ->get();
+
+            $title = 'قائمة أعضاء ' . $groupTitle;
+        }
+
+        if ($loggedUser->user_type == 'super_admin') {
+
+            $users = User::whereNot('id', 1)
+                ->whereNot('id', $loggedUser->id)
+                ->where('name', 'like', '%' . $search . '%')
+                ->get();
+
+            $title = 'قائمة كل الأعضاء';
+        }
+
+        return view('user.index', compact('users', 'title'));
     }
 
+
+    public function todaySubtasks(){
+
+        $todayTasks = TaskSubtask::all();
+        
+        return view('user.today.subtasks',compact('todayTasks'));
+    }
+
+    public function todayAttachments(){
+
+        $todayAttachments = TaskAttachment::all();
+        
+        return view('user.today.attachments',compact('todayAttachments'));
+    }
+
+    
+    public function todayTasks()
+    {
+        $today = Carbon::now()->format('Y-m-d');
+
+        $todayTasks = DB::table('tasks')
+        ->select(
+            'tasks.title as taskTitle',
+            'tasks.start_at as taskStartAt',
+            'tasks.end_at as taskEndAt',
+            'tasks.done_at as taskDoneAt',
+            'days.title as dayTitle',
+            'days.ar_date as arDate',
+            'days.en_date as enDate',
+            'groups.title as groupTitle',
+            'users.name as assignFor',
+            'users.phone as phone',
+            'users.user_type as userType',
+        )
+        ->join('days','tasks.day_id','days.id')
+        ->leftJoin('users','tasks.assign_for_id','users.id')
+        ->leftJoin('groups','tasks.group_id','groups.id')
+        ->whereDate('days.en_date',$today)
+        ->get();
+
+        // return $todayTasks;
+
+        return view('user.today.tasks',compact('todayTasks'));
+    }
 
 }

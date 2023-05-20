@@ -18,7 +18,9 @@ class TaskController extends Controller
     public function forMeStore(Request $request)
     {
         $request->validate([
-            'title' => 'required'
+            'title' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required'
         ]);
 
         $loggedUser = auth()->user();
@@ -42,6 +44,8 @@ class TaskController extends Controller
             'title' => 'required',
             'day_id' => 'required',
             'user_id' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required'
         ]);
 
         $loggedUser = auth()->user();
@@ -70,18 +74,17 @@ class TaskController extends Controller
     public function userDayIndex(User $user)
     {
         $days = Day::withCount([
-            'tasks' => function ($task) use($user){
+            'tasks' => function ($task) use ($user) {
                 $task->where('assign_for_id', $user->id);
             },
-            'taskAttachments' => function ($taskAttachment) use($user){
+            'taskAttachments' => function ($taskAttachment) use ($user) {
                 $taskAttachment->where('assign_for_id', $user->id);
-            }
-            ,
-            'taskSubtasks' => function ($taskSubtask) use($user){
+            },
+            'taskSubtasks' => function ($taskSubtask) use ($user) {
                 $taskSubtask->where('assign_for_id', $user->id);
             }
         ])->get();
-        
+
         return view('user.day.index', compact('user', 'days'));
     }
 
@@ -96,12 +99,23 @@ class TaskController extends Controller
     }
 
 
+    public function edit(Task $task)
+    {
+        return view('task.edit', compact('task'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update([
+            'title' => $request->title,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at
+        ]);
+
+        return back();
     }
 
     /**
@@ -120,6 +134,6 @@ class TaskController extends Controller
             $task->delete();
         }
 
-        return redirect()->route('dashboard');
+        return back();
     }
 }

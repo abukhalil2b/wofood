@@ -26,14 +26,6 @@
                 <x-text-input type="text" name="ar_date" class="mt-1 block w-full" value="{{ $day->ar_date }}" />
             </div>
 
-            <div class="mt-6 flex items-center gap-1">
-                <div class="text-xs w-64">
-                    الإنجليزي
-                </div>
-                <x-text-input type="date" name="en_date" class="mt-1 block w-full" value="{{ $day->en_date }}" />
-            </div>
-
-
             <div class="mt-6 flex justify-between">
                 <x-secondary-button x-on:click="$dispatch('close')" class="w-14">
                     إلغ

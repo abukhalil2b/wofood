@@ -9,23 +9,28 @@
                 @csrf
 
                 @foreach($users as $user)
-                <div class="w-full mt-1 flex items-center justify-between gap-3">
+                <div class="w-full mt-1 flex items-center justify-between gap-1">
 
                     <label class="w-full flex items-center gap-1 hover:border-gray-400 bg-white p-1 text-gray-800 border rounded">
-                        <input type="checkbox" class="rounded" name="userIds[]" value="{{ $user->id }}">
+                        <input type="checkbox" class="w-6 h-6 rounded" name="userIds[]" value="{{ $user->id }}">
 
+                       <div> 
                         {{ $user->name }}
+
+                     
+                      <div class="text-xs text-gray-400"> {{ __( $user->user_type) }}</div>
+                       </div>
 
                     </label>
 
-                    <a href="{{ route('super_admin.group.user.show',$user->id) }}" class="btn-outline-orange">
+                    <a href="{{ route('super_admin.group.user.show',$user->id) }}" class="h-12 flex items-center btn-outline-orange">
                         إدارة
                     </a>
                 </div>
 
                 @endforeach
 
-                <div class="mt-3 flex gap-1 justify-center">
+                <div class="mt-3 ">
 
                     <select name="group_id" class="w-60 rounded border">
                         <option value=""></option>
@@ -34,8 +39,8 @@
                         @endforeach
                     </select>
 
-                    <x-primary-button class="h-12 px-2">
-                        نقل الأعضاء إلي
+                    <x-primary-button class="mt-4 px-2">
+                        نقل إلى
                     </x-primary-button>
 
                 </div>
