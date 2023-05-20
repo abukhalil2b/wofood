@@ -1,4 +1,9 @@
 <x-guest-layout>
+    @if( session('message') )
+    <div class="mt-3 p-1 bg-green-100 text-green-600 border rounded text-center border-green-600">
+        {{ session('message') }}
+    </div>
+    @endif
     <form x-data="{ group_id:null }" method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -29,11 +34,7 @@
         <x-primary-button class="w-full mt-4">
             تسجيل
         </x-primary-button>
-        @if( session('message') )
-        <div class="mt-3 p-1 bg-green-100 text-green-600 border rounded text-center border-green-600">
-            {{ session('message') }}
-        </div>
-        @endif
+
 
     </form>
 </x-guest-layout>
