@@ -11,7 +11,7 @@
                 @foreach($users as $user)
                 <div class="w-full mt-1 flex items-center justify-between gap-1">
 
-                    <label class="w-full flex items-center gap-1 hover:border-gray-400 bg-white p-1 text-gray-800 border rounded">
+                    <label class="w-full flex items-center gap-1 card2">
                         <input type="checkbox" class="w-6 h-6 rounded" name="userIds[]" value="{{ $user->id }}">
 
                        <div> 
@@ -32,7 +32,7 @@
 
                 <div class="mt-3 ">
 
-                    <select name="group_id" class="w-60 rounded border">
+                    <select name="group_id" class="w-60 rounded border card2">
                         <option value=""></option>
                         @foreach($groups as $group)
                         <option value="{{ $group->id }}">{{ $group->title }}</option>

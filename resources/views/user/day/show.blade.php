@@ -4,10 +4,10 @@
 
        @include('inc._username')
     
-        <div class="mt-1 card flex-col">
+        <div class="mt-1 card2 flex-col">
 
-            <div class="text-base"> {{ $day->ar_date }} </div>
-            <div class="text-red-800"> {{ $day->title }} </div>
+            <div class=""> {{ $day->ar_date }} </div>
+            <div class="text-[#ffb031]"> {{ $day->title }} </div>
             <div class="text-xs text-gray-400"> {{ $day->en_date }} </div>
 
         </div>

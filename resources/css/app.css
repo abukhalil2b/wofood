@@ -9,9 +9,18 @@
 
 body{
   font-family: 'Helvetica';
+
 }
 
+/* 
 
+#032a38
+#003b4f
+#00bfa8
+#b1efe6
+#ffb031
+#ffffff
+*/
 
 @layer components {
 
@@ -21,11 +30,11 @@ body{
 
     /* options */
     .option{
-      @apply p-2 text-xs text-center flex items-center justify-center border rounded cursor-pointer;
+      @apply p-2 text-xs text-center flex items-center justify-center border border-[#00bfa8] rounded cursor-pointer;
     }
 
     .option-selected{
-      @apply bg-orange-100 text-orange-600  border-orange-600;
+      @apply bg-[#b1efe6] text-[#00bfa8]  border-[#00bfa8];
     }
 
     /* subtask and attachment */
@@ -39,7 +48,11 @@ body{
 
     /* card */
     .card{
-      @apply bg-[#fff4e9] rounded border border-[#ffc5a7] flex justify-center items-center text-center p-1
+      @apply bg-[#003b4f] text-[#00bfa8] rounded border border-[#00bfa8] flex justify-center items-center text-center p-1
+    }
+
+    .card2{
+      @apply bg-[#b1efe6] p-1 mt-1 border rounded text-[#00bfa8]  border-[#00bfa8]
     }
 
   }

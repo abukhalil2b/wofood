@@ -16,6 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
+
+    /*--    user   --*/
+    Route::get('user/index', [HomeController::class, 'userIndex'])->name('user.index');
+
+    Route::post('user/search', [HomeController::class, 'userSearch'])->name('user.search');
+
+/*--    user - today --*/
+    Route::get('user/late/tasks', [HomeController::class, 'lateTasks'])->name('user.late.tasks');
+
+    Route::get('user/today/tasks', [HomeController::class, 'todayTasks'])->name('user.today.tasks');
+
+    Route::get('user/today/subtasks', [HomeController::class, 'todaySubtasks'])->name('user.today.subtasks');
+
+    Route::get('user/today/attachments', [HomeController::class, 'todayAttachments'])->name('user.today.attachments');
+});
+
 
 Route::group(['middleware' => ['auth', 'super_admin']], function () {
 
@@ -61,24 +80,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('day/show/{day}', [DayController::class, 'show'])->name('day.show');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
-
-    /*--    user   --*/
-    Route::get('user/index', [HomeController::class, 'userIndex'])->name('user.index');
-
-    Route::post('user/search', [HomeController::class, 'userSearch'])->name('user.search');
-
-/*--    user - today --*/
-    Route::get('user/late/tasks', [HomeController::class, 'lateTasks'])->name('user.late.tasks');
-
-    Route::get('user/today/tasks', [HomeController::class, 'todayTasks'])->name('user.today.tasks');
-
-    Route::get('user/today/subtasks', [HomeController::class, 'todaySubtasks'])->name('user.today.subtasks');
-
-    Route::get('user/today/attachments', [HomeController::class, 'todayAttachments'])->name('user.today.attachments');
-});
 
 Route::group(['middleware' => 'auth'], function () {
 

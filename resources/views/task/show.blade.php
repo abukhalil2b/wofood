@@ -5,22 +5,24 @@
         <div class="mt-1 p-1 text-gray-800">
 
             <div class="text-xl">
-                <span class="text-red-800">المهمة:</span>
-                {{ $task->title }}
+                <span class="text-[#ffb031]">المهمة:</span>
+               <div class="text-white">
+               {{ $task->title }}
+               </div>
             </div>
 
             @if($task->assign_by_id != null)
             <div>
-                <span class="text-red-800"> من:</span>
+                <span class="text-[#ffb031]"> من:</span>
                 {{ $task->assignby->name }}
             </div>
             @endif
 
             <div>
-                <span class="text-red-800 text-xs">
+                <span class="text-[#ffb031] text-xs">
                     تم إنجازها بتاريخ:
                 </span>
-                <span class="text-xs text-gray-400"> {{ $task->done_at }}</span>
+                <span class="text-xs"> {{ $task->done_at }}</span>
             </div>
         </div>
 
@@ -42,7 +44,7 @@
             </form>
 
             @foreach($task->taskAttachments as $attachment)
-            <div class="mt-2 bg-white border rounded p-1 w-80 text-xs">
+            <div class="mt-2 card2 w-80 text-xs">
                <div> {{ $attachment->title }}</div>
                <div class="flex justify-between">
                <a href="{{ Storage::url($attachment->url) }}">الملف</a>
@@ -58,7 +60,7 @@
             تعليقات
             @include('inc._modal_new_subtask')
             @foreach($task->taskSubtasks as $subtask)
-            <div class="mt-1 bg-white border rounded p-1 w-full text-xs flex justify-between">
+            <div class="mt-1 card2 p-1 w-full text-xs flex justify-between">
                 {{ $subtask->title }}
 
                 <a onclick="return confirm('هل متأكد');" href="{{ route('task.subtask.delete',$subtask->id) }}" class="text-red-400">حذف</a>

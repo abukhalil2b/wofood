@@ -10,7 +10,7 @@
 
             <form action="{{ route('user.search') }}" method="POST" class="mt-3 flex gap-1 justify-center items-center">
                 @csrf
-                <x-text-input class="w-full" type="search" name="search" placeholder="البحث بالاسم"/>
+                <x-text-input class="w-full card2" type="search" name="search" placeholder="البحث بالاسم"/>
                 <x-primary-button class="w-16">
                     بحث
                 </x-primary-button>
@@ -19,7 +19,7 @@
             <div class="mt-1">
             
                 @foreach($users as $user)
-                <div class="bg-white mt-1 p-1 text-gray-800 border rounded">
+                <div class="card2">
                     <a href="{{ route('user.day.index',$user->id) }}" >
                         <div>
                         {{ $user->name }}

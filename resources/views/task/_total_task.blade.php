@@ -1,6 +1,6 @@
 <div class="mt-1">
     @foreach($totalTasks as $task)
-    <div class="p-1 mt-1 bg-white border rounded">
+    <div class="card2">
         <div class="p-1 text-gray-800 flex justify-between">
         <div >
             <div class="text-xs text-red-800">{{ $task->day->ar_date }} </div>
