@@ -145,7 +145,7 @@ return [
     'string' => 'The :attribute field must be a string.',
     'timezone' => 'The :attribute field must be a valid timezone.',
     'unique' => ':attribute موجود مسبقا',
-    'uploaded' => 'The :attribute failed to upload.',
+    'uploaded' => 'فشل تحميل ( :attribute )',
     'uppercase' => 'The :attribute field must be uppercase.',
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',

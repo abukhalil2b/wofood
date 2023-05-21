@@ -18,6 +18,7 @@ class HomeController extends Controller
 
     public function dashboard()
     {
+        // return phpinfo();
         $loggedUser = auth()->user();
 
         $today = Carbon::today()->format('Y-m-d');
@@ -201,7 +202,7 @@ class HomeController extends Controller
         }
 
         if ($loggedUser->user_type == 'super_admin') {
-            $todayTasks = DB::table('task_attachments')
+            $todayAttachments = DB::table('task_attachments')
                 ->select(
                     'days.title as dayTitle',
                     'days.ar_date as dayArDate',
