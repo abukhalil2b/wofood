@@ -6,8 +6,8 @@
         @foreach($todayTasks as $subtask)
 
         <div class="bg-white mt-1 p-1 rounded border text-xs">
-            <div class="text-xl"> التعليق: {{ $subtask->subtaskTitle }}</div>
-            <div class="text-xl"> المهمه: {{ $subtask->taskTitle }}</div>
+            <div class="text-xl text-[#003b4f]"> التعليق: {{ $subtask->subtaskTitle }}</div>
+            <div class="text-xl text-[#003b4f]"> المهمه: {{ $subtask->taskTitle }}</div>
             <div class="text-xs text-gray-500"> العضو: {{ $subtask->assignForName}}</div>
             <hr class="my-2">
             <div class="text-[10px] text-gray-300">{{ $subtask->dayTitle }} {{ $subtask->dayArDate }} </div>

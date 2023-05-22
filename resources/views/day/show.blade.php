@@ -4,8 +4,11 @@
 
         <div class="w-full card2 p-3 ">
 
-            <div class="text-base"> {{ $day->ar_date }} </div>
-            <div class="text-red-800"> {{ $day->title }} </div>
+            <div class="text-[#032a38]"> 
+                <span class="text-sm text-[#ffb031]">{{ $day->title }} </span>
+                {{ $day->ar_date }} 
+            </div>
+         
             <div class="text-xs text-gray-400"> {{ $day->en_date }} </div>
 
         </div>

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Day;
+use App\Models\TaskAttachment;
+use App\Models\TaskSubtask;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -83,7 +86,9 @@ class TaskController extends Controller
             'taskSubtasks' => function ($taskSubtask) use ($user) {
                 $taskSubtask->where('assign_for_id', $user->id);
             }
-        ])->get();
+        ])
+        ->whereActive(1)
+        ->get();
 
         return view('user.day.index', compact('user', 'days'));
     }
@@ -129,9 +134,33 @@ class TaskController extends Controller
         if ($loggedUser->id == $task->assign_for_id) {
 
             $task->delete();
-        } elseif ($loggedUser->user_type == 'admin') {
+            
+             //delete attachment
+             $taskAttachment = TaskAttachment::where('task_id',$task->id)->first();
+
+            if($taskAttachment){
+                Storage::delete($taskAttachment->url);
+                $taskAttachment->delete();
+            }
+           
+            //delete subtask
+            TaskSubtask::where('task_id',$task->id)->delete();
+
+            
+        } elseif ($loggedUser->user_type == 'admin' || $loggedUser->user_type == 'super_admin') {
 
             $task->delete();
+
+            //delete attachment
+            $taskAttachment = TaskAttachment::where('task_id',$task->id)->first();
+            
+            if($taskAttachment){
+                Storage::delete($taskAttachment->url);
+                $taskAttachment->delete();
+            }
+
+            //delete subtask
+            TaskSubtask::where('task_id',$task->id)->delete();
         }
 
         return back();

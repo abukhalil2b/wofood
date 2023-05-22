@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-[#032a38] border-b border-black">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
@@ -6,7 +6,7 @@
             <img src="{{asset('logo.png')}}" alt="logo" width="30">
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-[#ffb031] hover:text-gray-500 hover:bg-[#ffb031] focus:outline-none focus:bg-[#ffb031] focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -14,9 +14,9 @@
                 </button>
             </div>
             </div>
-            <div class="text-gray-800">
+            <div class="text-[#ffb031]">
                 {{ Auth::user()->name }}
-                <div class="text-gray-800 text-xs">{{ __(Auth::user()->user_type) }}</div>
+                <div class="text-[#ffb031] text-xs">{{ __(Auth::user()->user_type) }}</div>
             </div>
 
         </div>
@@ -24,7 +24,7 @@
 
 
         <div :class="{'block': open, 'hidden': ! open}" class="hidden">
-            <div class="pt-2 pb-3 space-y-1 text-sm">
+            <div class="pt-2 pb-3 space-y-1 text-sm ">
 
                 @if(auth()->user()->user_type == 'super_admin')
                 <x-responsive-nav-link :href="route('super_admin.group.index')" :active="request()->routeIs('super_admin.group.index')">

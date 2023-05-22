@@ -9,14 +9,14 @@
 
         <div class="bg-white mt-1 p-1 rounded border text-xs">
 
-            <div class="text-xl">
+            <div class="text-xl text-[#003b4f]">
                 {{ $attachment->attachmentTitle }}
             </div>
             <a class="py-3 text-xl text-blue-600" href="{{ Storage::url($attachment->url) }}">
                 مرفق
             </a>
 
-            <div class="text-xs"> المهمه: {{ $attachment->taskTitle }}</div>
+            <div class="text-xs text-[#003b4f]"> المهمه: {{ $attachment->taskTitle }}</div>
             <div class="text-xs text-gray-500"> العضو: {{ $attachment->assignForName}}</div>
             <hr class="my-2">
             <div class="text-[10px] text-gray-300">{{ $attachment->dayTitle }} {{ $attachment->dayArDate }} </div>

@@ -11,12 +11,18 @@
             </div>
 
 
-            <div class="mt-6">
+            <div class="mt-6 text-[#b1efe6]">
                 الوقت المتوقع لإنجاز المهمة:
             </div>
-            <div class="mt-2 w-full grid grid-cols-3 md:grid-cols-8 gap-1">
-                <x-text-input type="time" class="" name="start_at" value="{{ $task->start_at}}" />
-                <x-text-input type="time" class="" name="end_at" value="{{ $task->end_at}}" />
+
+            <div class="w-full">
+
+                <div class="mt-6 text-[#b1efe6]"> من</div>
+                <x-text-input type="time" class="" name="start_at" class="w-full" value="{{ $task->start_at}}" />
+
+                <div class="mt-6 text-[#b1efe6]"> إلى</div>
+                <x-text-input type="time" class="" name="end_at" class="w-full" value="{{ $task->end_at}}" />
+
             </div>
 
 

@@ -20,6 +20,9 @@
             <main>
                 {{ $slot }}
             </main>
+            <div class="py-5 w-full flex justify-center">
+            <img src="{{ asset('logo-login.png') }}" alt="logo" width="70">
+            </div>
         </div>
 
         @livewireScripts

@@ -39,11 +39,11 @@ body{
 
     /* subtask and attachment */
     .sub-option{
-      @apply p-[1px] text-xs text-center flex items-center justify-center border rounded cursor-pointer;
+      @apply text-xs text-center flex items-center justify-center border rounded cursor-pointer p-1 border-[#032a38] text-[#032a38];
     }
 
     .sub-option-selected{
-      @apply bg-orange-100 text-orange-600  border-orange-600;
+      @apply bg-[#00bfa8] text-[#b1efe6]  border-[#032a38];
     }
 
     /* card */

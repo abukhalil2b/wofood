@@ -23,7 +23,7 @@
                     <a href="{{ route('user.day.index',$user->id) }}" >
                         <div>
                         {{ $user->name }}
-                        <div class="text-xs text-blue-600">
+                        <div class="text-xs text-[#032a38]">
                         {{ $user->group->title }}
                         </div>
                         </div>
