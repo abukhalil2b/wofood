@@ -3,8 +3,8 @@
     <div class="flex justify-between">
         <div class="text-[#032a38]"> {{ $task->title }} </div>
         <div>
-            <a href="{{ route('task.edit',$task->id) }}" class="text-orange-600 py-2 block">تعديل</a>
-            <a onclick="return confirm('هل متأكد');" href="{{ route('task.delete',$task->id) }}" class="text-red-600 py-2 block">حذف</a>
+            <a href="{{ route('task.edit',['task'=>$task->id,'day'=>$day->id]) }}" class="text-orange-600 py-2 block">تعديل</a>
+            <a onclick="return confirm('هل متأكد');" href="{{ route('task.delete',['task'=>$task->id,'day'=>$day->id] ) }}" class="text-red-600 py-2 block">حذف</a>
         </div>
     </div>
 

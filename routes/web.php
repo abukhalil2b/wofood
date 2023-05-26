@@ -36,9 +36,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+/*--    super_admin   --*/
 Route::group(['middleware' => ['auth', 'super_admin']], function () {
 
 
+     /*--    tasks   --*/
+     Route::get('super_admin/user/orderby_task_count', [SuperAdminController::class, 'orderbyTaskCount'])->name('super_admin.user.orderby_task_count');
+
+     /*--    day   --*/
     Route::get('super_admin/day/show/{day}', [SuperAdminController::class, 'dayShow'])->name('super_admin.day.show');
 
     Route::post('super_admin/day/update/{day}', [SuperAdminController::class, 'dayUpdate'])->name('super_admin.day.update');
@@ -73,6 +78,7 @@ Route::group(['middleware' => ['auth', 'super_admin']], function () {
         ->name('super_admin.group.user.shfit_to_other_group');
 });
 
+/*--   day   --*/
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('day/index', [DayController::class, 'index'])->name('day.index');
@@ -81,15 +87,16 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+/*--   task   --*/
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('task/show/{task}', [TaskController::class, 'show'])->name('task.show');
 
-    Route::get('task/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::get('task/edit/{task}/{day}', [TaskController::class, 'edit'])->name('task.edit');
 
     Route::post('task/update/{task}', [TaskController::class, 'update'])->name('task.update');
 
-    Route::get('task/delete/{task}', [TaskController::class, 'delete'])->name('task.delete');
+    Route::get('task/delete/{task}/{day}', [TaskController::class, 'delete'])->name('task.delete');
 
     Route::post('task/for_me/store', [TaskController::class, 'forMeStore'])->name('task.for_me.store');
 
@@ -100,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/day/show/{user}/{day}', [TaskController::class, 'userDayShow'])->name('user.day.show');
 });
 
+/*--   subtask   --*/
 Route::group(['middleware' => 'auth'], function () {
     Route::post('task/subtask/store', [TaskSubtaskController::class, 'store'])->name('task.subtask.store');
     Route::get('task/subtask/index/{task}', [TaskSubtaskController::class, 'index'])->name('task.subtask.index');
@@ -107,12 +115,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+/*--   attachment   --*/
 Route::group(['middleware' => 'auth'], function () {
     Route::post('task/attachment/store', [TaskAttachmentController::class, 'store'])->name('task.attachment.store');
     Route::get('task/attachment/delete/{attachment}', [TaskAttachmentController::class, 'delete'])->name('task.attachment.delete');
 });
 
 
+/*--   profile   --*/
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

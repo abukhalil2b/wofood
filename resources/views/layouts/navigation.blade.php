@@ -38,6 +38,12 @@
                 </x-responsive-nav-link>
                 @endif
 
+                @if(auth()->user()->user_type == 'super_admin')
+                <x-responsive-nav-link :href="route('super_admin.user.orderby_task_count')" :active="request()->routeIs('super_admin.user.orderby_task_count')">
+                    ترتيب الأعضاء حسب المهام
+                </x-responsive-nav-link>
+                @endif
+
                 @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
                 <x-responsive-nav-link :href="route('user.today.tasks')" :active="request()->routeIs('user.today.tasks')">
                    مهام كل الأعضاء لهذا اليوم
@@ -48,12 +54,6 @@
                 @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
                 <x-responsive-nav-link :href="route('user.late.tasks')" :active="request()->routeIs('user.late.tasks')">
                    مهام كل الأعضاء المتأخرة
-                </x-responsive-nav-link>
-                @endif
-
-                @if(auth()->user()->user_type == 'super_admin' || auth()->user()->user_type == 'admin')
-                <x-responsive-nav-link :href="route('user.today.attachments')" :active="request()->routeIs('user.today.attachments')">
-                   مرفقات كل الأعضاء لهذا اليوم
                 </x-responsive-nav-link>
                 @endif
 

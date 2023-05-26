@@ -2,6 +2,10 @@
 
     <div class="mt-1 max-w-7xl mx-auto sm:px-6 lg:px-8 p-3">
 
+        <div class="mt-1 p-1 text-gray-800 bg-[#b1efe6] rounded">
+            {{ $day->title }}
+        </div>
+
         <form method="post" action="{{ route('task.update',$task->id) }}" class="p-3 text-[#035b62]">
             @csrf
 
@@ -31,7 +35,7 @@
                     تحديث
                 </x-primary-button>
             </div>
-
+            <input type="hidden" value="{{ $day->id }}" name="day_id">
         </form>
 
     </div>

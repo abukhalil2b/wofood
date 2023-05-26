@@ -104,9 +104,9 @@ class TaskController extends Controller
     }
 
 
-    public function edit(Task $task)
+    public function edit(Task $task,Day $day)
     {
-        return view('task.edit', compact('task'));
+        return view('task.edit', compact('task','day'));
     }
 
     /**
@@ -114,19 +114,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+
         $task->update([
             'title' => $request->title,
             'start_at' => $request->start_at,
             'end_at' => $request->end_at
         ]);
 
-        return back();
+        return redirect()->route('day.show',$request->day_id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Task $task)
+    public function delete(Task $task,Day $day)
     {
 
         $loggedUser = auth()->user();
@@ -162,7 +163,7 @@ class TaskController extends Controller
             //delete subtask
             TaskSubtask::where('task_id',$task->id)->delete();
         }
-
-        return back();
+return back();
+        // return redirect()->route('day.show',$day->id);
     }
 }

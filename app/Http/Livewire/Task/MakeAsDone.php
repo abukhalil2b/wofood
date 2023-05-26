@@ -20,14 +20,29 @@ class MakeAsDone extends Component
         $this->done_at = $task->done_at;
     }
 
-    public function makeAsDone()
+    public function toggleDone()
     {
-        $this->done_at = date('Y-m-d H:i:s');
+        
 
-        Task::where('id',$this->taskId)->update([
-            'done_at' =>  $this->done_at
-        ]);
+        $task = Task::find($this->taskId);
+
+        if ($task->done_at == null) {
+
+            $this->done_at = date('Y-m-d H:i:s');
+
+            $task->update([
+                'done_at' =>  $this->done_at
+            ]);
+        } else {
+
+            $this->done_at = null;
+
+            $task->update([
+                'done_at' =>  null
+            ]);
+        }
     }
+
 
     public function render()
     {

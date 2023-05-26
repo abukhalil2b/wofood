@@ -223,7 +223,7 @@ class HomeController extends Controller
         return view('user.today.attachments', compact('todayAttachments'));
     }
 
-    //[ ] this is result need check
+
     public function todayTasks()
     {
         $today = Carbon::now()->format('Y-m-d');

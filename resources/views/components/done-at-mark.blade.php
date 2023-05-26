@@ -2,29 +2,17 @@
 
 @if($done_at)
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="25px" height="25px" fill-rule="nonzero">
-    <g fill="#477700" fill-rule="nonzero" stroke="#477700" stroke-width="1" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-        <path transform="scale(5.33333,5.33333)" d="M36,42h-24c-3.314,0 -6,-2.686 -6,-6v-24c0,-3.314 2.686,-6 6,-6h24c3.314,0 6,2.686 6,6v24c0,3.314 -2.686,6 -6,6z" id="strokeMainSVG"></path>
-    </g>
-    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-        <g transform="scale(5.33333,5.33333)">
-            <path d="M36,42h-24c-3.314,0 -6,-2.686 -6,-6v-24c0,-3.314 2.686,-6 6,-6h24c3.314,0 6,2.686 6,6v24c0,3.314 -2.686,6 -6,6z" fill="#c8e6c9"></path>
-            <path d="M34.585,14.586l-13.571,13.586l-5.601,-5.588l-2.826,2.832l8.432,8.412l16.396,-16.414z" fill="#4caf50"></path>
-        </g>
-    </g>
+<svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#00bfa8">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#00bfa8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#00bfa8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </g>
 </svg>
 
 @else
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="25px" height="25px" fill-rule="nonzero">
-    <g transform="">
-        <g fill="#dfdfdf" fill-rule="nonzero" stroke="#dfdfdf" stroke-width="1" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-            <path transform="scale(5.33333,5.33333)" d="M36,42h-24c-3.314,0 -6,-2.686 -6,-6v-24c0,-3.314 2.686,-6 6,-6h24c3.314,0 6,2.686 6,6v24c0,3.314 -2.686,6 -6,6z" id="strokeMainSVG"></path>
-        </g>
-        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-            
-        </g>
-    </g>
+<svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#cccccc" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#cccccc" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 
 @endif

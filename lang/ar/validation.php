@@ -32,8 +32,8 @@ return [
         'string' => 'The :attribute field must be between :min and :max characters.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => 'The :attribute field confirmation does not match.',
-    'current_password' => 'The password is incorrect.',
+    'confirmed' => ':attribute لايوجد تطابق',
+    'current_password' => 'كلمة المرور غير صحيحة',
     'date' => 'The :attribute field must be a valid date.',
     'date_equals' => 'The :attribute field must be a date equal to :date.',
     'date_format' => 'The :attribute field must match the format :format.',
@@ -100,7 +100,7 @@ return [
         'array' => 'The :attribute field must have at least :min items.',
         'file' => 'The :attribute field must be at least :min kilobytes.',
         'numeric' => 'The :attribute field must be at least :min.',
-        'string' => 'The :attribute field must be at least :min characters.',
+        'string' => ':attribute يجب أن لايقل عن :min ',
     ],
     'min_digits' => 'The :attribute field must have at least :min digits.',
     'missing' => 'The :attribute field must be missing.',
@@ -182,7 +182,7 @@ return [
     'attributes' => [
 
         'attachment' => 'المرفقات',
-        'current_password' => 'كلمة الرور الحالية',
+        'current_password' => 'كلمة المرور الحالية',
         'title' => 'العنوان',
         'idcard' => 'المستخدم',
         'password' => 'كلمة المرور',
