@@ -1,0 +1,115 @@
+
+### show all tasks which has to be done today
+#admin can see users whom in his group
+###super_admin can see every one
+GET http://127.0.0.1:8000/api/user/today/tasks HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 2|D2hawAkDGHdFpPXVgYrhtv2oIFBtm7v39GtKLy0F
+
+###delete your own task
+DELETE http://127.0.0.1:8000/api/task/for_me/delete/1 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 1|Uv5H2yyBfIZ0KPHmMYqJnMVTjgrq1QMM9TtqcXxN
+
+#update your own task
+###update a task which is assigned by him self
+PUT http://127.0.0.1:8000/api/task/for_me/update/1 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 1|Uv5H2yyBfIZ0KPHmMYqJnMVTjgrq1QMM9TtqcXxN
+
+{
+    "title":"title",
+    "start_at": "12:42:00",
+    "end_at": "15:42:00"
+}
+
+#update your password
+###make it simple
+PUT http://127.0.0.1:8000/api/user/password/update HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 2|D2hawAkDGHdFpPXVgYrhtv2oIFBtm7v39GtKLy0F
+
+{
+    "new_password":1234
+}
+
+###create new task for member of your team or group
+POST http://127.0.0.1:8000/api/task/for_my_team/store HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 2|D2hawAkDGHdFpPXVgYrhtv2oIFBtm7v39GtKLy0F
+
+{
+    "title": "فحص المكيفات",
+    "day_id": "28",
+    "user_id": "3",
+    "start_at": "12:42:00",
+    "end_at": "15:42:00"
+}
+
+###create new task for your self
+POST http://127.0.0.1:8000/api/task/for_me/store HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 2|D2hawAkDGHdFpPXVgYrhtv2oIFBtm7v39GtKLy0F
+
+{
+    "title": "فحص المكيفات",
+    "day_id": "12",
+    "start_at": "12:42:00",
+    "end_at": "15:42:00"
+}
+
+# errors example
+# {
+# 	"message": "( العنوان ) حقل مطلوب (and 2 more errors)",
+# 	"errors": {
+# 		"title": [
+# 			"( العنوان ) حقل مطلوب"
+# 		],
+# 		"start_at": [
+# 			"( من ) حقل مطلوب"
+# 		],
+# 		"end_at": [
+# 			"( إلى ) حقل مطلوب"
+# 		]
+# 	}
+# }
+# 
+
+GET http://127.0.0.1:8000/api/day/show/28 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 2|D2hawAkDGHdFpPXVgYrhtv2oIFBtm7v39GtKLy0F
+
+
+GET http://127.0.0.1:8000/api/day/index HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 1|Uv5H2yyBfIZ0KPHmMYqJnMVTjgrq1QMM9TtqcXxN
+
+
+GET http://127.0.0.1:8000/api/dashboard HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 1|Uv5H2yyBfIZ0KPHmMYqJnMVTjgrq1QMM9TtqcXxN
+
+GET http://127.0.0.1:8000/api/user HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 1|Uv5H2yyBfIZ0KPHmMYqJnMVTjgrq1QMM9TtqcXxN
+
+###
+
+POST http://127.0.0.1:8000/api/user/login HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "phone": "3",
+    "password": "3"
+}

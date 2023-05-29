@@ -21,9 +21,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if(auth()->id() == 1){
-                    return redirect('super_admin');
-                }
+                //TODO check if super admin is authenticated
+                // if(auth()->id() == 1){
+                //     return redirect('super_admin');
+                // }
                 return redirect(RouteServiceProvider::HOME);
             }
         }

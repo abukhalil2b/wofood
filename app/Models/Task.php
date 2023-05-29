@@ -8,6 +8,11 @@ class Task extends Model
 {
    protected $guarded = [];
 
+   public function group()
+   {
+      return $this->belongsTo(Group::class);
+   }
+
    public function assignfor()
    {
       return $this->belongsTo(User::class, 'assign_for_id');

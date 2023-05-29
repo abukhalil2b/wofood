@@ -226,9 +226,11 @@ class HomeController extends Controller
 
     public function todayTasks()
     {
-        $today = Carbon::now()->format('Y-m-d');
-
         $loggedUser = auth()->user();
+
+        $todayDate = date('Y-m-d');
+
+        $todayDay = Day::whereDate('en_date', $todayDate)->first();
 
         if ($loggedUser->user_type == 'admin') {
 
@@ -253,8 +255,7 @@ class HomeController extends Controller
                 ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
                 ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
                 ->leftJoin('groups', 'tasks.group_id', 'groups.id')
-                ->whereDate('days.en_date', $today)
-                ->where('assignFor.id', $groupId)
+                ->where(['tasks.group_id' => $groupId, 'days.id' => $todayDay->id])
                 ->get();
         }
 
@@ -279,7 +280,7 @@ class HomeController extends Controller
                 ->leftJoin('users as assignFor', 'tasks.assign_for_id', 'assignFor.id')
                 ->leftJoin('users as assignBy', 'tasks.assign_by_id', 'assignBy.id')
                 ->leftJoin('groups', 'tasks.group_id', 'groups.id')
-                ->whereDate('days.en_date', $today)
+                ->where(['days.id' => $todayDay->id])
                 ->get();
         }
         // return $todayTasks;
