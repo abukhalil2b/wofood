@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
+
+    public function show(Task $task)
+    {
+        
+
+        return Task::where('id',$task->id)->with(['assignby','taskSubtasks','taskAttachments'])->first();
+    }
     /**
      * title	group_id	assign_for_id	day_id	start_at	end_at	done_at	consent	note
      */
@@ -174,5 +181,34 @@ class TaskController extends Controller
         // return $todayTasks;
 
         return response(['todayTasks' => $todayTasks], 200);
+    }
+
+    public function userDayIndex(User $user)
+    {
+        $days = Day::withCount([
+            'tasks' => function ($task) use ($user) {
+                $task->where('assign_for_id', $user->id);
+            },
+            'taskAttachments' => function ($taskAttachment) use ($user) {
+                $taskAttachment->where('assign_for_id', $user->id);
+            },
+            'taskSubtasks' => function ($taskSubtask) use ($user) {
+                $taskSubtask->where('assign_for_id', $user->id);
+            }
+        ])
+        ->whereActive(1)
+        ->get();
+
+        return compact('user', 'days');
+    }
+
+    public function userDayShow(User $user, Day $day)
+    {
+        $tasks = Task::where([
+            'assign_for_id' => $user->id,
+            'day_id' => $day->id
+        ])->with(['assignby', 'taskAttachments', 'taskSubtasks'])->get();
+
+        return compact('tasks', 'user', 'day');
     }
 }
