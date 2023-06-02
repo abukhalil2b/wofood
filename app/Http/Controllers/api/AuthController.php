@@ -18,7 +18,7 @@ class AuthController extends Controller
             'phone' => 'required',
             'password' => 'required',
         ]);
-
+     
         $user = User::where('phone', $request->phone)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -26,7 +26,8 @@ class AuthController extends Controller
                 'phone' => ['The provided credentials are incorrect.'],
             ]);
         }
-
+        // return 'done';
+        // header("Access-Control-Allow-Origin: *");
         return $user->createToken($user->user_type, ['user_type' => $user->user_type])->plainTextToken;
     }
 
