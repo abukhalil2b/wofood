@@ -39,7 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
 /*--    super_admin   --*/
 Route::group(['middleware' => ['auth', 'super_admin']], function () {
 
-
      /*--    tasks   --*/
      Route::get('super_admin/user/orderby_task_count', [SuperAdminController::class, 'orderbyTaskCount'])->name('super_admin.user.orderby_task_count');
 
@@ -61,6 +60,11 @@ Route::group(['middleware' => ['auth', 'super_admin']], function () {
         ->middleware('super_admin')
         ->name('super_admin.group.store');
 
+        Route::post('super_admin/group/update_status', [SuperAdminController::class, 'groupUpdateStatus'])
+        ->middleware('super_admin')
+        ->name('super_admin.group.update_status');
+
+        
     Route::get('super_admin/group/user/index/{group}', [SuperAdminController::class, 'groupUserIndex'])
         ->middleware('super_admin')
         ->name('super_admin.group.user.index');

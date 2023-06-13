@@ -43,4 +43,10 @@ class AuthController extends Controller
 
         return response(['message'=>'تم تحديث كلمة المرور'],200);
     }
+
+    public function logout()
+    {
+        auth()->user()->token()->delete();
+        return response(['message'=>'تم تسجيل الخروج'],200);
+    }
 }

@@ -110,6 +110,14 @@ class SuperAdminController extends Controller
         return back();
     }
 
+    public function groupUpdateStatus(Request $request,Group $group)
+    {
+
+        $group->update(['active'=>$request->status]);
+
+        return back();
+    }
+
     public function groupUserIndex(Group $group)
     {
 

@@ -13,27 +13,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('user/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->put('user/password/update', [AuthController::class, 'passwordUpdate']);
 
-Route::middleware('auth:sanctum')->get('dashboard', [HomeController::class, 'dashboard']);
+/*--   auth   --*/
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::post('user/password/update', [AuthController::class, 'passwordUpdate']);
+});
 
 /*--   users   --*/
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/user', [UserController::class, 'show']);
 
-    Route::get('/user/index', [HomeController::class, 'userIndex']);
+    Route::get('user', [UserController::class, 'show']);
 
-    Route::post('/user/search', [HomeController::class, 'userSearch']);
+    Route::get('user/index', [HomeController::class, 'userIndex']);
 
-    Route::get('/user/late/tasks', [HomeController::class, 'lateTasks']);
+    Route::post('user/search', [HomeController::class, 'userSearch']);
 
-    Route::get('/user/today/tasks', [HomeController::class, 'todayTasks']);
+    Route::get('user/late/tasks', [HomeController::class, 'lateTasks']);
 
-    Route::get('/user/today/subtasks', [HomeController::class, 'todaySubtasks']);
+    Route::get('user/today/tasks', [HomeController::class, 'todayTasks']);
 
-    Route::get('/user/day/index/{user}', [TaskController::class, 'userDayIndex']);
+    Route::get('user/today/subtasks', [HomeController::class, 'todaySubtasks']);
 
-    Route::get('/user/day/show/{user}/{day}', [TaskController::class, 'userDayShow']);
+    Route::get('user/day/index/{user}', [TaskController::class, 'userDayIndex']);
+
+    Route::get('user/day/show/{user}/{day}', [TaskController::class, 'userDayShow']);
 
 });
 

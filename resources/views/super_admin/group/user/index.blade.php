@@ -1,10 +1,15 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 p-3">
         <div class="mt-1">
-            <div class="text-xl text-orange-500 text-center">
+            <div class="text-2xl text-orange-500 text-center">
                 أعضاء {{ $group->title }}
             </div>
-            @include('inc._modal_new_user')
+
+
+            <div class="mt-4 flex gap-5">
+                @include('inc._modal_new_user')
+                <livewire:admin.group.update-status groupId="{{ $group->id }}" />
+            </div>
             <form action="{{ route('super_admin.group.user.shfit_to_other_group') }}" method="POST">
                 @csrf
 
@@ -14,12 +19,12 @@
                     <label class="w-full flex items-center gap-1 card2">
                         <input type="checkbox" class="w-6 h-6 rounded" name="userIds[]" value="{{ $user->id }}">
 
-                       <div> 
-                        {{ $user->name }}
+                        <div>
+                            {{ $user->name }}
 
-                     
-                      <div class="text-xs text-gray-400"> {{ __( $user->user_type) }}</div>
-                       </div>
+
+                            <div class="text-xs text-gray-400"> {{ __( $user->user_type) }}</div>
+                        </div>
 
                     </label>
 
@@ -30,18 +35,19 @@
 
                 @endforeach
 
-                <div class="mt-3 ">
+                <div class="mt-4 flex gap-2">
 
-                    <select name="group_id" class="w-60 rounded border card2">
+                    <x-primary-button class="h-10 px-2">
+                        نقل إلى
+                    </x-primary-button>
+
+                    <select name="group_id" class="w-60 rounded border">
                         <option value=""></option>
                         @foreach($groups as $group)
                         <option value="{{ $group->id }}">{{ $group->title }}</option>
                         @endforeach
                     </select>
 
-                    <x-primary-button class="mt-4 px-2">
-                        نقل إلى
-                    </x-primary-button>
 
                 </div>
                 <x-input-error :messages="$errors->get('group_id')" class="text-center" />
