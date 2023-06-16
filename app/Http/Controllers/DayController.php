@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
+use App\Models\Taskcat;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,12 +35,19 @@ class DayController extends Controller
     public function show(Day $day)
     {
         $loggedUser = auth()->user();
+        
+        if($loggedUser->user_type == 'super_admin'){
+            $taskcats = Taskcat::all();
+        }else{
+  $taskcats = Taskcat::where('group_id',$loggedUser->group_id)->get();
+        }
+      
 
         $tasks = Task::where([
             'assign_for_id' => $loggedUser->id,
             'day_id' => $day->id
         ])->get();
 
-        return view('day.show', compact('day', 'tasks'));
+        return view('day.show', compact('day', 'tasks','taskcats'));
     }
 }

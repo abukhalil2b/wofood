@@ -16,6 +16,15 @@
                          الأعضاء ({{ $group->users->count() }})
                         </div>
                     </div>
+
+                    <hr>
+
+                    @if(auth()->user()->user_type == 'super_admin')
+                <a href="{{ route('super_admin.group.taskcat.index',$group->id) }}" >
+                    تصنيف المهام    
+</a>
+                @endif
+
                 </div>
                 @endforeach
             </div>

@@ -14,4 +14,9 @@ class Group extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function taskcats()
+    {
+        return $this->hasMany(Taskcat::class);
+    }
 }

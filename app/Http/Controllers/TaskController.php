@@ -23,7 +23,8 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required',
             'start_at' => 'required',
-            'end_at' => 'required'
+            'end_at' => 'required',
+            'taskcat_id'=>'required'
         ]);
 
         $loggedUser = auth()->user();
@@ -35,6 +36,7 @@ class TaskController extends Controller
             'day_id' => $request->day_id,
             'start_at' => $request->start_at,
             'end_at' => $request->end_at,
+            'taskcat_id' => $request->taskcat_id,
         ]);
 
         return back();
@@ -48,7 +50,8 @@ class TaskController extends Controller
             'day_id' => 'required',
             'user_id' => 'required',
             'start_at' => 'required',
-            'end_at' => 'required'
+            'end_at' => 'required',
+            'taskcat_id'=>'required'
         ]);
 
         $loggedUser = auth()->user();
@@ -61,6 +64,7 @@ class TaskController extends Controller
             'day_id'         => $request->day_id,
             'start_at'       => $request->start_at,
             'end_at'         => $request->end_at,
+            'taskcat_id' => $request->taskcat_id,
         ]);
 
         return back();;
@@ -71,6 +75,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+
         return view('task.show', compact('task'));
     }
 

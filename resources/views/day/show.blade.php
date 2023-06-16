@@ -12,6 +12,8 @@
             <div class="text-xs text-gray-400"> {{ $day->en_date }} </div>
 
         </div>
+        @if( count($taskcats) )
+
         @include('inc._modal_new_task')
 
         @foreach($tasks as $task)
@@ -19,6 +21,12 @@
         @include('inc._task')
 
         @endforeach
+
+        @else
+<div>
+    يجب اضافة تصنيف
+</div>
+        @endif
     </div>
 
 </x-app-layout>

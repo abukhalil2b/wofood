@@ -7,6 +7,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\TaskSubtaskController;
 use App\Http\Controllers\TaskAttachmentController;
+use App\Http\Controllers\TaskcatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,6 +81,14 @@ Route::group(['middleware' => ['auth', 'super_admin']], function () {
     Route::post('super_admin/group/user/shfit_to_other_group', [SuperAdminController::class, 'shfitToOtherGroup'])
         ->middleware('super_admin')
         ->name('super_admin.group.user.shfit_to_other_group');
+
+        
+/*--   taskcat   --*/
+
+    Route::get('super_admin/group/taskcat/index/{group}', [TaskcatController::class, 'index'])->name('super_admin.group.taskcat.index');
+    Route::post('super_admin/group/taskcat/store', [TaskcatController::class, 'store'])->name('super_admin.group.taskcat.store');
+
+
 });
 
 /*--   day   --*/
@@ -132,5 +141,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__ . '/auth.php';

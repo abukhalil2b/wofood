@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('done_at')->nullable();// write done date
             $table->string('consent')->default('yes');// iin case of having a circumstance
             $table->text('note')->nullable();// in case of refuse
+            $table->integer('taskcat_id')->nullable();
             $table->timestamps();
         });
     }
