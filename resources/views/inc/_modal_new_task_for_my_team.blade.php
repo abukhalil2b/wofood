@@ -14,6 +14,15 @@
         <form x-data="{ expected_duration: '' }" method="post" action="{{ route('task.for_my_team.store') }}" class="p-3 text-[#035b62]">
             @csrf
 
+            <div>
+                تصنيف المهمة
+            </div>
+            <select name="taskcat_id" class="mt-1 w-full rounded">
+                @foreach($taskcats as $taskcat)
+                <option value="{{ $taskcat->id }}"> {{ $taskcat->title }} </option>
+                @endforeach
+            </select>
+
             <div class="mt-6">
                 <x-text-input type="text" name="title" class="mt-1 block w-full" placeholder="المهمة" />
                 <x-input-error :messages="$errors->get('title')" />

@@ -9,7 +9,10 @@
         <form x-data="{ expected_duration: '' }" method="post" action="{{ route('task.for_me.store') }}" class="p-3 text-[#035b62]">
             @csrf
 
-            <select name="taskcat_id" class="mt-1 w-full">
+            <div>
+                تصنيف المهمة
+            </div>
+            <select name="taskcat_id" class="mt-1 w-full rounded">
                 @foreach($taskcats as $taskcat)
                 <option value="{{ $taskcat->id }}"> {{ $taskcat->title }} </option>
                 @endforeach

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Day;
 use App\Models\TaskAttachment;
 use App\Models\TaskSubtask;
+use App\Models\Taskcat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -100,12 +101,21 @@ class TaskController extends Controller
 
     public function userDayShow(User $user, Day $day)
     {
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->user_type == 'super_admin') {
+            $taskcats = Taskcat::all();
+        } else {
+            $taskcats = Taskcat::where('group_id', $loggedUser->group_id)->get();
+        }
+
+
         $tasks = Task::where([
             'assign_for_id' => $user->id,
             'day_id' => $day->id
         ])->get();
 
-        return view('user.day.show', compact('tasks', 'user', 'day'));
+        return view('user.day.show', compact('tasks', 'user', 'day','taskcats'));
     }
 
 
