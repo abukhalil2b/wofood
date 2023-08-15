@@ -14,11 +14,11 @@ class DaySeeder extends Seeder
 
         $active = 0;
 
-        foreach ($this->date_range($todayDate, "2023-07-04", "+1 day", "Y-m-d") as $enDate) {
+        foreach ($this->date_range($todayDate, "2023-08-25", "+1 day", "Y-m-d") as $enDate) {
 
             $dayName = $this->getDayName(date('w', strtotime($enDate)));
 
-            if ($enDate >= '2023-06-14') {
+            if ($enDate >= '2023-08-18') {
                 $active = 1;
             }
 
